@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Sistema de Chamados</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+<body>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <span>Olá, <strong><script>document.write(JSON.parse(localStorage.getItem('usuarioLogado')).nome)</script></strong>! 👋</span>
+    
+    <div>
+        <a href="cadastro_usuarios.html" style="margin-right: 15px;">⚙️ Gerenciar Usuários</a>
+        <button onclick="sair()" style="background: #e74c3c; color: white; padding: 5px 10px; font-size: 0.8em;">Sair 🚪</button>
+    </div>
+</div>
+
+<script>
+    function sair() {
+        localStorage.removeItem('usuarioLogado'); // Rasga o crachá
+        window.location.href = 'login.html';      // Manda pro login
+    }
+</script>
+
+   
+    <div class="form-novo-chamado">
+        <label>Anexar Print (Opcional):</label>
+<input type="file" id="arquivo-upload" accept="image/*">
+        <h2>📂 Abrir Novo Chamado</h2>
+        <label>Prioridade:</label>
+        <select id="prioridade">
+            <option value="Baixa">🟢 Baixa</option>
+            <option value="Média">🟠 Média</option>
+            <option value="Alta">🔴 Alta</option>
+        </select>
+        <Br></Br>
+
+        <label>Título do Problema:</label>
+        <input type="text" id="titulo" placeholder="Ex: Internet não funciona">
+
+        <label>Descrição Detalhada:</label>
+        <textarea id="descricao" rows="3" placeholder="Ex: A luz do modem está vermelha..."></textarea>        
+
+        <button onclick="criarChamado()" class="btn-criar">Criar Chamado</button>
+    </div>
+
+    <hr>
+
+    <h1>Lista de Chamados</h1>
+
+    <div class="dashboard">
+        <div class="dash-card total">
+            <h3>Total Geral</h3>
+            <span id="dash-total">0</span>
+        </div>
+        <div class="dash-card abertos">
+            <h3>Pendentes</h3>
+            <span id="dash-abertos">0</span>
+        </div>
+        <div class="dash-card fechados">
+            <h3>Concluídos</h3>
+            <span id="dash-fechados">0</span>
+        </div>
+    </div>
+
+    <div style="max-width: 300px; margin: 0 auto 30px auto;">
+        <canvas id="meuGrafico"></canvas>
+    </div>
+
+    <input type="text"
+            id="input-busca"
+            placeholder="🔎 Digite para pesquisar..."
+            onkeyup="filtrarPorTexto()"
+            style="margin-bottom: 10px; border: 2px solid #2196F3;">
+
+    <div class="filtros">
+        <button onclick="filtrar('Todos')" id="btn-todos" class="ativo">Todos</button>
+        <button onclick="filtrar('Aberto')" id="btn-aberto">Pendentes</button>
+        <button onclick="filtrar('Fechado')" id="btn-fechado">Concluídos</button>
+    </div>
+
+    <div id="lista-chamados">Carregando...</div>
+
+    <div id="modal-chat" class="modal-overlay">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h3 id="titulo-chat">Chat do Chamado</h3>
+            <button onclick="fecharModal()" style="background:none; color:red; font-size:1.5em; width:auto;">✖</button>
+        </div>
+
+        <div id="lista-comentarios" class="chat-area"></div>
+
+        <div>            
+            <textarea id="chat-texto" placeholder="Escreva uma resposta..." rows="2"></textarea>
+            <button onclick="enviarComentario()" class="btn-criar">Enviar 💬</button>
+        </div>
+    </div>
+</div>
+
+   <script src="script.js"></script>
+</body>
+</html>

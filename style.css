@@ -1,0 +1,171 @@
+/* --- GERAL --- */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    padding: 20px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+    background-color: #f4f6f8; 
+    color: #333;
+}
+
+h1, h2, h3 { color: #2c3e50; }
+a { text-decoration: none; color: #2196F3; font-weight: bold; }
+a:hover { text-decoration: underline; }
+
+/* --- FORMULÁRIOS --- */
+.form-novo-chamado, .card-usuario { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+input, textarea, select { 
+    width: 100%; 
+    padding: 10px; 
+    margin: 5px 0 15px 0; 
+    display: block; 
+    box-sizing: border-box; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    background-color: #fff;
+}
+
+/* --- BOTÕES --- */
+button { 
+    padding: 10px; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    transition: background 0.3s;
+}
+
+.btn-criar { background: #2196F3; color: white; width: 100%; }
+.btn-criar:hover { background: #1976D2; }
+
+.btn-fechar { background: #ef5350; color: white; padding: 8px 12px; float: right; font-size: 14px;}
+.btn-fechar:hover { background: #d32f2f; }
+
+.btn-voltar { background: #607D8B; color: white; margin-bottom: 20px; }
+.btn-voltar:hover { background: #455A64; }
+
+.btn-delete {
+    float: right; 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+.btn-delete:hover { transform: scale(1.2); }
+
+/* --- DASHBOARD (ESTATÍSTICAS) --- */
+.dashboard { display: flex; gap: 15px; margin-bottom: 25px; }
+.dash-card { 
+    flex: 1; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    text-align: center; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+}
+.dash-card h3 { margin: 0 0 10px 0; font-size: 1.1em; color: #555; }
+.dash-card span { font-size: 2.5em; font-weight: bold; display: block; }
+
+.dash-card.total { border-top: 5px solid #2196F3; }   
+.dash-card.abertos { border-top: 5px solid #ff9800; } 
+.dash-card.fechados { border-top: 5px solid #4caf50; } 
+
+/* --- FILTROS --- */
+.filtros { margin-bottom: 15px; display: flex; gap: 10px; }
+.filtros button { flex: 1; border: 1px solid #ccc; background: #e0e0e0; color: #333; }
+.filtros button:hover { background: #d5d5d5; }
+.filtros button.ativo { background: #607D8B; color: white; border-color: #455A64; }
+
+/* --- LISTA DE CHAMADOS (CARDS) --- */
+.card { 
+    border: 1px solid #ddd; 
+    padding: 15px; 
+    margin-bottom: 10px; 
+    border-radius: 8px; 
+    background: white; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+    position: relative; /* Para posicionar coisas dentro se precisar */
+}
+
+.status-aberto { border-left: 5px solid #ff9800; } 
+.status-fechado { border-left: 5px solid #4caf50; background-color: #fcfcfc; opacity: 0.9; }
+
+/* --- BADGES (PRIORIDADE) --- */
+.badge { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8em; color: white; display: inline-block; margin-bottom: 5px;}
+.p-baixa { background-color: #8bc34a; } 
+.p-media { background-color: #ff9800; } 
+.p-alta  { background-color: #f44336; } 
+
+/* --- TELA DE USUÁRIOS --- */
+.admin-check { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; background: #fff3cd; padding: 10px; border-radius: 4px; }
+.admin-check input { width: auto; margin: 0; }
+
+/* --- TABELA DE USUÁRIOS --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden; /* Arredonda as pontas da tabela */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #607D8B; /* Cinza azulado */
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+tr:hover { background-color: #f1f1f1; }
+
+.tag-admin {
+    background-color: #2196F3;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+/* --- MODAL DE CHAT --- */
+.modal-overlay {
+    display: none; /* Escondido por padrão */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); /* Fundo escuro transparente */
+    z-index: 1000;
+    justify-content: center; align-items: center;
+}
+
+.modal-content {
+    background: white; width: 90%; max-width: 500px;
+    padding: 20px; border-radius: 8px;
+    display: flex; flex-direction: column; height: 80vh; /* 80% da altura da tela */
+}
+
+.chat-area {
+    flex: 1; overflow-y: auto; /* Barra de rolagem só nas mensagens */
+    border: 1px solid #ddd; background: #f9f9f9;
+    padding: 10px; margin-bottom: 10px; border-radius: 4px;
+}
+
+.mensagem {
+    background: #e3f2fd; padding: 8px 12px; margin-bottom: 8px;
+    border-radius: 10px; border-bottom-left-radius: 0;
+    max-width: 80%;
+}
+.msg-info { font-size: 0.75em; color: #666; display: block; margin-bottom: 2px; }

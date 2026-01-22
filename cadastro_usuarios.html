@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Usuários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button class="btn-voltar" onclick="window.location.href='index.html'">⬅ Voltar para Chamados</button>
+
+    <div class="card-usuario">
+        <h2>👤 Novo Usuário</h2>
+        
+        <label>Nome Completo:</label>
+        <input type="text" id="nome" placeholder="Ex: Ana Souza">
+
+        <label>E-mail:</label>
+        <input type="email" id="email" placeholder="Ex: ana@empresa.com">
+
+        <div class="admin-check">
+            <input type="checkbox" id="is_admin">
+            <label for="is_admin"><strong>Este usuário é Administrador?</strong></label>
+        </div>
+
+        <button onclick="salvarUsuario()" class="btn-criar">Cadastrar Usuário</button>
+    </div>
+
+    <h3>Usuários Cadastrados</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Permissão</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-usuarios">
+            </tbody>
+    </table>
+
+    <script>
+        // 1. Função de Salvar (Você já tinha)
+        async function salvarUsuario() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const is_admin = document.getElementById('is_admin').checked;
+
+            if(!nome) return alert('O nome é obrigatório!');
+
+            const dados = { nome, email, is_admin };
+
+            const resposta = await fetch('http://localhost:3000/usuarios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if(resposta.ok) {
+                alert('Usuário cadastrado com sucesso!');
+                document.getElementById('nome').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('is_admin').checked = false;
+                
+                // Recarrega a lista para mostrar o novo user na hora!
+                carregarListaUsuarios();
+            } else {
+                alert('Erro ao cadastrar.');
+            }
+        }
+
+        // ⚡ NOVA: Busca os usuários e desenha a tabela
+        async function carregarListaUsuarios() {
+            const tbody = document.getElementById('tabela-usuarios');
+            tbody.innerHTML = '<tr><td colspan="4">Carregando...</td></tr>';
+
+            const resposta = await fetch('http://localhost:3000/usuarios');
+            const usuarios = await resposta.json();
+
+            tbody.innerHTML = ''; // Limpa
+
+            usuarios.forEach(usuario => {
+                // Se for admin, coloca a etiqueta bonita. Se não, traço.
+                const tagAdmin = usuario.is_admin 
+                    ? '<span class="tag-admin">ADMIN</span>' 
+                    : 'Usuário';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>#${usuario.id}</td>
+                        <td><strong>${usuario.nome}</strong></td>
+                        <td>${usuario.email || '-'}</td>
+                        <td>${tagAdmin}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Carrega a lista assim que abre a página
+        carregarListaUsuarios();
+    </script>
+</body>
+</html>

@@ -27,7 +27,7 @@ const conexao = mysql.createConnection({
     host: process.env.MYSQLHOST || 'localhost',
     user: process.env.MYSQLUSER || 'root',
     password: process.env.MYSQLPASSWORD || 'admin', // Coloque sua senha do Workbench aqui se for rodar local
-    database: process.env.MYSQLDATABASE || 'sistema_helpdesk',
+    database: process.env.MYSQLDATABASE || 'meu_projeto',
     port: process.env.MYSQLPORT || 3306
 });
 // 2. Teste se conectou

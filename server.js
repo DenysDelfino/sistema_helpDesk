@@ -24,12 +24,12 @@ app.use(express.json());
 
 // 1. Configuração da conexão com o Banco
 const conexao = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'admin', // <--- COLOQUE SUA SENHA DO MYSQL AQUI
-    database: 'meu_projeto'        // <--- CONFIRA O NOME DO SEU BANCO
+    host: process.env.MYSQLHOST || 'localhost',
+    user: process.env.MYSQLUSER || 'root',
+    password: process.env.MYSQLPASSWORD || 'admin', // Coloque sua senha do Workbench aqui se for rodar local
+    database: process.env.MYSQLDATABASE || 'sistema_helpdesk',
+    port: process.env.MYSQLPORT || 3306
 });
-
 // 2. Teste se conectou
 conexao.connect(erro => {
     if (erro) {

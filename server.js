@@ -30,6 +30,18 @@ const conexao = mysql.createConnection({
     database: process.env.MYSQLDATABASE || 'meu_projeto',
     port: process.env.MYSQLPORT || 3306
 });
+
+// --- ROTA DA PÁGINA INICIAL ---
+// Quando alguém acessa o site, o servidor envia o arquivo index.html
+const { link } = require('fs');
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+
+// Para o CSS e o Script funcionarem, precisamos liberar a pasta raiz também
+app.use(express.static(__dirname));
+
 // 2. Teste se conectou
 conexao.connect(erro => {
     if (erro) {

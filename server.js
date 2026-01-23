@@ -40,7 +40,8 @@ app.get('/', (req, res) => {
 });
 
 // Para o CSS e o Script funcionarem, precisamos liberar a pasta raiz também
-app.use(express.static(__dirname));
+//app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 2. Teste se conectou
 conexao.connect(erro => {
